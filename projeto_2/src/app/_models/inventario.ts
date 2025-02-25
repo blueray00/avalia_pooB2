@@ -1,13 +1,13 @@
-import { ItemMagico } from "./itemMagico";
+import { ArmaMagica } from "./armaMagica";
 
 export class Inventario {
-  private itens: ItemMagico[] = [];
+  private armas: ArmaMagica[] = [];
 
-  adicionarItem(item: ItemMagico): void {
-    this.itens.push(item);
+  adicionarArma(arma: ArmaMagica): void {
+    this.armas.push(arma);
   }
 
-  listarItens(): ItemMagico[] {
-    return this.itens;
+  listarArmas(): ArmaMagica[] {
+    return this.armas;
   }
 }

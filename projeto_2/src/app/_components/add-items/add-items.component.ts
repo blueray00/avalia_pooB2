@@ -1,26 +1,52 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ItemMagicoService } from '../../_services/itemMagicoService';
-import { ItemMagico } from '../../_models/itemMagico';
-import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-items',
-  imports: [FormsModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule
+  ],
   templateUrl: './add-items.component.html',
-  styleUrl: './add-items.component.css'
+  styleUrls: ['./add-items.component.css']
 })
 export class AddItemsComponent {
-  nome: string = '';
-  poder: string = '';
+  formItemMagico: FormGroup;
 
-  constructor(private itemMagicoService: ItemMagicoService) {}
+  constructor(private fb: FormBuilder, private itemMagicoService: ItemMagicoService) {
+    this.formItemMagico = this.fb.group({
+      nome: ['', Validators.required],
+      poder: ['', Validators.required],
+      tipo: ['', Validators.required],
+      dano: [null], // Só será preenchido se for tipo "ataque"
+      descricao: ['', Validators.required]
+    });
 
-  adicionar(): void {
-    if (this.nome && this.poder) {
-      const novoItem = new ItemMagico(this.nome, this.poder);
+    // Se mudar o tipo para defesa, zera o dano
+    this.formItemMagico.get('tipo')?.valueChanges.subscribe(tipo => {
+      if (tipo === 'defesa') {
+        this.formItemMagico.get('dano')?.reset();
+      }
+    });
+  }
+
+  adicionarItem() {
+    if (this.formItemMagico.valid) {
+      const novoItem = this.formItemMagico.value;
       this.itemMagicoService.adicionarItem(novoItem);
-      this.nome = '';
-      this.poder = '';
+      this.formItemMagico.reset(); // Limpa o formulário após adicionar
     }
   }
 }

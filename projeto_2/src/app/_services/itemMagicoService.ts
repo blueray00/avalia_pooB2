@@ -1,19 +1,23 @@
 import { Injectable } from '@angular/core';
 import { ItemMagico } from '../_models/itemMagico';
-import { Inventario } from '../_models/inventario';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemMagicoService {
-  private inventario = new Inventario();
+  removerItem(index: number) {
+    throw new Error('Method not implemented.');
+  }
+  private itensMagicos: ItemMagico[] = [];
 
-  adicionarItem(item: ItemMagico): void {
-    this.inventario.adicionarItem(item);
+  adicionarItem(item: ItemMagico) {
+    this.itensMagicos.push(item);
   }
 
   listarItens(): ItemMagico[] {
-    return this.inventario.listarItens();
+    return this.itensMagicos;
   }
 }
+
+
 
