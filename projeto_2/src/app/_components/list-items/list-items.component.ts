@@ -1,20 +1,28 @@
 import { Component } from '@angular/core';
-import { ItemMagicoService } from '../../_services/itemMagicoService';
-import { ItemMagico } from '../../_models/itemMagico';
-import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';  // Importando MatTableModule
+import { MatIconModule } from '@angular/material/icon';    // Importando MatIconModule
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Necessário para animações do Material
 
 @Component({
   selector: 'app-list-items',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [MatTableModule, MatIconModule, BrowserAnimationsModule],  // Importando os módulos aqui
   templateUrl: './list-items.component.html',
-  styleUrl: './list-items.component.css'
+  styleUrls: ['./list-items.component.css']
 })
 export class ListItemsComponent {
-  itens: ItemMagico[] = [];
+  // Exemplo de dados
+  itens = [
+    { nome: 'Espada Flamejante', magia: 'Chama da destruição' },
+    { nome: 'Elmo de Invisibilidade', magia: 'Invisibilidade' },
+    { nome: 'Cloak of Time', magia: 'Controle do tempo' },
+  ];
 
-  constructor(private itemMagicoService: ItemMagicoService) {}
+  displayedColumns: string[] = ['nome', 'magia', 'acao'];
 
-  ngOnInit(): void {
-    this.itens = this.itemMagicoService.listarItens();
+  // Método para deletar item
+  deletarItem(item: any): void {
+    this.itens = this.itens.filter(i => i !== item);
   }
 }
+
