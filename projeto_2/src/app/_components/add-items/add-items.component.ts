@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ItemMagicoService } from '../../_services/itemMagicoService';
+import { ItemMagico } from '../../_models/itemMagico';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -30,20 +31,14 @@ export class AddItemsComponent {
       nome: ['', Validators.required],
       poder: ['', Validators.required],
       tipo: ['', Validators.required],
-      dano: [null],
-      descricao: ['', Validators.required]
-    });
-
-    this.formItemMagico.get('tipo')?.valueChanges.subscribe(tipo => {
-      if (tipo === 'defesa') {
-        this.formItemMagico.get('dano')?.reset();
-      }
+      dano: [''],
+      descricao: ['', Validators.required],
     });
   }
 
-  adicionarItem() {
+  adicionarItem(): void {
     if (this.formItemMagico.valid) {
-      const novoItem = this.formItemMagico.value;
+      const novoItem: ItemMagico = this.formItemMagico.value;
       this.itemMagicoService.adicionarItem(novoItem);
       this.formItemMagico.reset();
     }

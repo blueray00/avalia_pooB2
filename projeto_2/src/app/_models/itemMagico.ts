@@ -3,7 +3,8 @@ export class ItemMagico {
     public nome: string,
     public poder: string,
     public tipo: 'Ataque' | 'Defesa',
-    public dano?: number
+    public dano?: number,
+    public favorito: boolean = false
   ) {}
 
   descrever(): string {
