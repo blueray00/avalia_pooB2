@@ -1,28 +1,27 @@
-import { Component } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';  // Importando MatTableModule
-import { MatIconModule } from '@angular/material/icon';    // Importando MatIconModule
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Necessário para animações do Material
+import { Component, OnInit } from '@angular/core';
+import { ItemMagicoService } from '../../_services/itemMagicoService';
+import { ItemMagico } from '../../_models/itemMagico';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-list-items',
-  standalone: true,
-  imports: [MatTableModule, MatIconModule, BrowserAnimationsModule],  // Importando os módulos aqui
   templateUrl: './list-items.component.html',
+  imports: [MatTableModule, MatIconModule, MatButtonModule],
   styleUrls: ['./list-items.component.css']
 })
-export class ListItemsComponent {
-  // Exemplo de dados
-  itens = [
-    { nome: 'Espada Flamejante', magia: 'Chama da destruição' },
-    { nome: 'Elmo de Invisibilidade', magia: 'Invisibilidade' },
-    { nome: 'Cloak of Time', magia: 'Controle do tempo' },
-  ];
+export class ListItemsComponent implements OnInit {
+  itens: ItemMagico[] = [];
+  displayedColumns: string[] = ['nome', 'magia', 'acoes'];
 
-  displayedColumns: string[] = ['nome', 'magia', 'acao'];
+  constructor(private itemMagicoService: ItemMagicoService) {}
 
-  // Método para deletar item
-  deletarItem(item: any): void {
+  ngOnInit(): void {
+    this.itens = this.itemMagicoService.listarItens();
+  }
+
+  removerItem(item: ItemMagico): void {
     this.itens = this.itens.filter(i => i !== item);
   }
 }
-

@@ -30,11 +30,10 @@ export class AddItemsComponent {
       nome: ['', Validators.required],
       poder: ['', Validators.required],
       tipo: ['', Validators.required],
-      dano: [null], // Só será preenchido se for tipo "ataque"
+      dano: [null],
       descricao: ['', Validators.required]
     });
 
-    // Se mudar o tipo para defesa, zera o dano
     this.formItemMagico.get('tipo')?.valueChanges.subscribe(tipo => {
       if (tipo === 'defesa') {
         this.formItemMagico.get('dano')?.reset();
@@ -46,7 +45,7 @@ export class AddItemsComponent {
     if (this.formItemMagico.valid) {
       const novoItem = this.formItemMagico.value;
       this.itemMagicoService.adicionarItem(novoItem);
-      this.formItemMagico.reset(); // Limpa o formulário após adicionar
+      this.formItemMagico.reset();
     }
   }
 }
