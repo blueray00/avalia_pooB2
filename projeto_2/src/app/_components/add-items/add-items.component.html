@@ -1,3 +1,5 @@
+<br>
+<h2>Cadastre Seu Item</h2>
 <form [formGroup]="formItemMagico" (ngSubmit)="adicionarItem()" class="form-container">
   <mat-form-field appearance="outline">
     <mat-label>Nome do Item</mat-label>
@@ -20,13 +22,17 @@
   <mat-form-field *ngIf="formItemMagico.get('tipo')?.value === 'ataque'" appearance="outline">
     <mat-label>Dano</mat-label>
     <input matInput type="number" formControlName="dano" placeholder="Ex: 50">
-    <mat-hint>obs: Informe o dano apenas se for um item de ataque</mat-hint>
+    <mat-hint>obs.: Informe o dano apenas se for um item de ataque!</mat-hint>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Descrição</mat-label>
     <textarea matInput formControlName="descricao" placeholder="Ex: Uma lâmina forjada no fogo dos dragões." required></textarea>
   </mat-form-field>
-<button type="submit" class="btn btn-primary">Adicionar Item Mágico</button>
+
+  <button type="submit" class="btn btn-primary">Adicionar Item Mágico</button>
 </form>
+
+
+
 

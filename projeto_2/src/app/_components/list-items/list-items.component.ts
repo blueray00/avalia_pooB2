@@ -22,7 +22,7 @@ import { Subscription } from 'rxjs';
 })
 export class ListItemsComponent implements OnInit {
   dataSource = new MatTableDataSource<ItemMagico>([]);
-  displayedColumns: string[] = ['nome', 'poder', 'tipo', 'dano', 'acoes'];
+  displayedColumns: string[] = ['nome', 'poder', 'tipo', 'dano', 'descricao', 'acoes'];
   subscription!: Subscription;
 
   constructor(private itemMagicoService: ItemMagicoService) {}
@@ -42,7 +42,7 @@ export class ListItemsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe(); // Evita vazamento de memória
+    this.subscription.unsubscribe();
   }
 }
 
