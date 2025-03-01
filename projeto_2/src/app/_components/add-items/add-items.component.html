@@ -1,3 +1,6 @@
+<br>
+<h2>Cadastre seu item</h2>
+
 <form [formGroup]="formItemMagico" (ngSubmit)="adicionarItem()" class="form-container">
   <mat-form-field appearance="outline">
     <mat-label>Nome do Item</mat-label>
@@ -27,6 +30,11 @@
     <mat-label>Descrição</mat-label>
     <textarea matInput formControlName="descricao" placeholder="Ex: Uma lâmina forjada no fogo dos dragões." required></textarea>
   </mat-form-field>
-<button type="submit" class="btn btn-primary">Adicionar Item Mágico</button>
+
+  <button type="submit" class="btn btn-primary">Adicionar Item Mágico</button>
 </form>
+
+<h2>Itens cadastrados</h2>
+
+
 
